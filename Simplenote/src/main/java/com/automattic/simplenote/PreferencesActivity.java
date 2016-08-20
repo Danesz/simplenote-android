@@ -1,6 +1,7 @@
 package com.automattic.simplenote;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.support.v7.app.AppCompatActivity;
@@ -43,7 +44,7 @@ public class PreferencesActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             Bundle passcodeArgs = new Bundle();
             passcodeArgs.putBoolean(PasscodePreferenceFragment.KEY_SHOULD_INFLATE, false);
-            mPasscodePreferenceFragment = new PasscodePreferenceFragment();
+            mPasscodePreferenceFragment = new PasscodePreferenceFragmentWithResult();
             mPasscodePreferenceFragment.setArguments(passcodeArgs);
 
             mPreferencesFragment = new PreferencesFragment();
@@ -56,6 +57,7 @@ public class PreferencesActivity extends AppCompatActivity {
             mPreferencesFragment = (PreferencesFragment)fragmentManager.findFragmentByTag(preferencesTag);
             mPasscodePreferenceFragment = (PasscodePreferenceFragment)fragmentManager.findFragmentByTag(passcodeTag);
         }
+
     }
 
     @Override
@@ -81,4 +83,10 @@ public class PreferencesActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
 }

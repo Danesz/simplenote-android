@@ -15,6 +15,7 @@ import com.automattic.simplenote.models.NoteTagger;
 import com.automattic.simplenote.models.Tag;
 import com.automattic.simplenote.utils.PrefUtils;
 import com.simperium.Simperium;
+import com.simperium.android.SecureAndroidClient;
 import com.simperium.client.Bucket;
 import com.simperium.client.BucketNameInvalid;
 
@@ -42,11 +43,29 @@ public class Simplenote extends Application {
 
         AppLockManager.getInstance().enableDefaultAppLockIfAvailable(this);
 
+
+        mSimperium = Simperium.newClient(
+                BuildConfig.SIMPERIUM_APP_ID,
+                BuildConfig.SIMPERIUM_APP_KEY,
+                new SecureAndroidClient(this)
+        );
+        /*
+
+        //TODO: migration needs to be implemented in SecureAndroidClient
+
         mSimperium = Simperium.newClient(
                 BuildConfig.SIMPERIUM_APP_ID,
                 BuildConfig.SIMPERIUM_APP_KEY,
                 this
         );
+
+        try {
+            mSimperium.migrateToSecure();
+        } catch (MigrationException e) {
+            e.printStackTrace();
+        }
+
+         */
 
         mSimperium.setAuthProvider(AUTH_PROVIDER);
 
